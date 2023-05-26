@@ -59,6 +59,11 @@ namespace Gobi.Game.Hero
       Position = m_gridConverter.TileCenter(GridIndex);
     }
 
+    private void Start()
+    {
+      StartCoroutine(MoveInDirCoroutine(Vector2Int.up));
+    }
+
     private void OnDestroy() => 
       m_input.Swipe -= Move;
 
