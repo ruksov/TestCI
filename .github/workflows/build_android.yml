@@ -1,0 +1,28 @@
+﻿name: Build project
+
+on: [push, pull_request]
+
+jobs:
+  buildForAllSupportedPlatforms:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+
+      - name: Setup Unity
+        uses: kuler90/setup-unity@v1
+        with:
+          unity-modules: android
+
+      - name: Activate Unity
+        uses: kuler90/activate-unity@v1
+        with:
+          unity-username: ${{ secrets.UNITY_USERNAME }}
+          unity-password: ${{ secrets.UNITY_PASSWORD }}
+          unity-authenticator-key: ${{ secrets.UNITY_LICENSE }}
+
+      - name: Build Unity
+        uses: kuler90/build-unity@v1
+        with:
+          build-target: Android
+          build-path: ./build.apk
